@@ -14,7 +14,7 @@
 		D6108B202DCC9BE000D2EABA /* Exceptions for "newsApp" folder in "newsApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Utils/Info.plist,
 			);
 			target = D6108B0D2DCC9BDD00D2EABA /* newsApp */;
 		};
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W2262Z7D8F;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = newsApp/Info.plist;
+				INFOPLIST_FILE = newsApp/Utils/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -175,7 +175,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = W2262Z7D8F;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = newsApp/Info.plist;
+				INFOPLIST_FILE = newsApp/Utils/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
