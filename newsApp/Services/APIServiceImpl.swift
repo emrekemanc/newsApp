@@ -27,21 +27,17 @@ class APIServiceImpl: APIService{
         request.setValue(Secrets.shared.apiHost, forHTTPHeaderField: "X-RapidAPI-Host")
         request.setValue(Secrets.shared.apiKey, forHTTPHeaderField: "X-RapidAPI-Key")
         session.dataTask(with: request) { data, response, error in
-            print(data,response,error)
             if let error = error{
-                print(error.localizedDescription)
                 completion(.failure(error))
             }
             guard let data = data else{ completion(.failure(NSError(domain: "no_data", code: -1))); return}
             do{
                 let decoded = try JSONDecoder().decode(APIModel.self, from: data)
-                print(data)
                 completion(.success(decoded.data))
             }catch{
-                print(error.localizedDescription)
                 completion(.failure(error))
             }
-        }
+        }.resume()
     }
     
 }

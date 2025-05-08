@@ -8,7 +8,7 @@ import Foundation
 
 // MARK: - APIModel
 struct APIModel: Codable {
-    let status, requestID: String
+    let status, requestID: String?
     let data: [Datum]
 
     enum CodingKeys: String, CodingKey {

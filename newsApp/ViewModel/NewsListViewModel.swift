@@ -13,10 +13,8 @@ class NewsListViewModel: ObservableObject{
         apiService.fetchNews(query: query, limit: 15, time_published: "anytime", country: "TR", lang: "tr") { result in
             switch result{
             case .success(let datum):
-                print(datum)
                 self.news = datum
             case .failure(let error):
-                print(error)
                 self.errorMessage = error.localizedDescription
             }
         }

@@ -15,20 +15,21 @@ class NewsListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observeViewModel()
-        viewModel.loadNews(query: "Türkiye")
+        viewModel.loadNews(query: "Ankara")
     }
 
     @IBAction func fetchButton(_ sender: UIBarButtonItem) {
-        viewModel.loadNews(query: "Türkiye")
+        viewModel.loadNews(query: "Ankara")
     }
     func observeViewModel(){
         viewModel.$news.receive(on: DispatchQueue.main).sink { result in
             self.newsList = result
+            self.tableView.reloadData()
             print(self.newsList)
         }.store(in: &cancellables)
         
         viewModel.$errorMessage.compactMap { $0 }.sink { error in
-            self.showError(error)
+            print(error.lowercased())
         }.store(in: &cancellables)
     }
     
@@ -38,8 +39,18 @@ class NewsListViewController: UITableViewController {
             self.present(alert, animated: true)
     }
     
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         newsList.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsListCellController", for: indexPath) as? NewsListCellController else{
+            return UITableViewCell()
+        }
+        let news = newsList[indexPath.row]
+        cell.cellConfigure(with: news)
+        return cell
     }
     
 }
