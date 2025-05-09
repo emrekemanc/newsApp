@@ -22,7 +22,7 @@ struct APIModel: Codable {
 struct Datum: Codable {
     let title: String
     let link: String
-    let snippet: String
+    let snippet: String?
     let photoURL: String?
     let thumbnailURL: String?
     let publishedDatetimeUTC: String

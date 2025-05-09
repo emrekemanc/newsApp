@@ -8,9 +8,10 @@ import Foundation
 class APIServiceImpl: APIService{
     private let session = URLSession.shared
     
-    func fetchNews(query: String?, limit: Int = 5, time_published: String = "anytime", country: String = "TR", lang: String = "tr",completion: @escaping(Result<[Datum], Error>) -> Void){
+    func fetchNews(query: String?,topic: String = "WORLD", limit: Int = 20, time_published: String = "anytime", country: String = "WORLD", lang: String = "en",completion: @escaping(Result<[Datum], Error>) -> Void){
         var components = URLComponents(string: "https://real-time-news-data.p.rapidapi.com/topic-headlines")
         var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "topic", value: topic),
             URLQueryItem(name: "limit", value: "\(limit)"),
             URLQueryItem(name: "time_published", value: time_published),
             URLQueryItem(name: "country", value: country),
@@ -26,15 +27,20 @@ class APIServiceImpl: APIService{
         request.httpMethod = "GET"
         request.setValue(Secrets.shared.apiHost, forHTTPHeaderField: "X-RapidAPI-Host")
         request.setValue(Secrets.shared.apiKey, forHTTPHeaderField: "X-RapidAPI-Key")
+        
         session.dataTask(with: request) { data, response, error in
             if let error = error{
                 completion(.failure(error))
             }
             guard let data = data else{ completion(.failure(NSError(domain: "no_data", code: -1))); return}
             do{
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print(jsonString)
+                }
                 let decoded = try JSONDecoder().decode(APIModel.self, from: data)
                 completion(.success(decoded.data))
             }catch{
+                print(error)
                 completion(.failure(error))
             }
         }.resume()

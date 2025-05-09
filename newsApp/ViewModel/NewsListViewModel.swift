@@ -10,7 +10,7 @@ class NewsListViewModel: ObservableObject{
     @Published var errorMessage: String? = nil
     private let apiService: APIService = APIServiceImpl()
     func loadNews(query: String?){
-        apiService.fetchNews(query: query, limit: 15, time_published: "anytime", country: "TR", lang: "tr") { result in
+        apiService.fetchNews(query: query, topic: "WORLD", limit: 15, time_published: "anytime", country: "TR", lang: "tr") { result in
             switch result{
             case .success(let datum):
                 self.news = datum
