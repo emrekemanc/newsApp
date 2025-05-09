@@ -54,6 +54,16 @@ class NewsListViewController: UITableViewController {
         cell.cellConfigure(with: news)
         return cell
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let news = newsList[indexPath.row]
+        let detailVC = UIStoryboard(name: "Main", bundle: nil)
+               .instantiateViewController(withIdentifier: "NewsDetailViewController") as! NewsDetailViewController
+           detailVC.selectedNews = news
+           // veya: detailVC.loadIndex = indexPath.row
+           navigationController?.pushViewController(detailVC, animated: true)
+        
+    }
+   
 }
 
 extension NewsListViewController: UISearchBarDelegate{
