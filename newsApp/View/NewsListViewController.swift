@@ -9,13 +9,15 @@ import UIKit
 import Combine
 
 class NewsListViewController: UITableViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
     private let viewModel: NewsListViewModel = NewsListViewModel()
     private var cancellables = Set<AnyCancellable>()
     private var newsList: [Datum] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         observeViewModel()
-        viewModel.loadNews(query: "Ankara")
+        viewModel.loadNews(query: nil)
     }
 
     @IBAction func fetchButton(_ sender: UIBarButtonItem) {
@@ -52,6 +54,12 @@ class NewsListViewController: UITableViewController {
         cell.cellConfigure(with: news)
         return cell
     }
-    
 }
 
+extension NewsListViewController: UISearchBarDelegate{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        let query = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        viewModel.loadNews(query: query?.isEmpty == false ? query : nil)
+    }
+}

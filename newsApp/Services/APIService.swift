@@ -7,7 +7,7 @@
 
 import Foundation
 protocol APIService {
-    func fetchNews(query: String?, limit: Int, time_published: String, country: String, lang: String,
+    func fetchNews(query: String?,topic: String, limit: Int, time_published: String, country: String, lang: String,
         completion: @escaping (Result<[Datum], Error>) -> Void
     )
 }
